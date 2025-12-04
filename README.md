@@ -23,10 +23,22 @@ The goal is to give a **clean, professional** view of the stock performance over
 ## 2. Data
 
 ### 2.1 Source
+All stock price data used in this project was downloaded from **Yahoo Finance**
+using the *Historical Data* tab for each ticker.
 
-- The main dataset is a CSV file downloaded from a **public financial data website** (Yahoo Finance).
-- File name used in the notebook:  
-  `data/raw/2222.SR.csv`
+Main site:
+- `https://finance.yahoo.com/`
+
+Example (Saudi Aramco – 2222.SR):
+- `https://finance.yahoo.com/quote/2222.SR/history?p=2222.SR`
+
+The CSV files in `data/raw/` (such as `2222.SR.csv`, `1120.SR.csv`, etc.)
+are exported directly from Yahoo Finance without manual modification, except
+for basic cleaning done later in PySpark.
+
+
+> Note: The data is used for learning and academic purposes only.
+
 
 ### 2.2 Main Columns (Raw Data)
 
@@ -299,9 +311,9 @@ These four cards give a quick, high-level view of the stock behaviour.
 To make the dashboard more interactive, we use:
 
 1. **Year Slicer**
-   -Field: `Year`
-   -Type: list 
-   -Effect: filters the monthly line chart and other visuals to a single year.
+   - Field: `Year`
+   - Type: list (radio buttons)
+   - Effect: filters the monthly line chart and other visuals to a single year.
 
 ---
 
@@ -312,8 +324,36 @@ All results are based on the dataset available at the time of analysis
 If the dataset is refreshed in the future (more rows are added), the numbers in
 the dashboard will update automatically.
 
+---
 
+## 7. Extra Sample Datasets (Other Saudi Stocks)
 
+For anyone who wants to reuse this project for **learning purposes**, I also included
+additional CSV files for other Saudi stocks:
 
+- `1120.SR.csv`
+- `1180.SR.csv`
+- `1211.SR.csv`
+- `1810.SR.csv`
+- `2010.SR.csv`
+- `2050.SR.csv`
+- `2222.SR.csv`  *(Aramco – main focus of this report)*
+- `4003.SR.csv`
+- `5110.SR.csv`
+- `7010.SR.csv`
 
+All these files are located in:
 
+```text
+data/raw/
+```
+
+and they share the same basic structure as 2222.SR.csv:
+	•	Date
+	•	Open, High, Low, Close
+	•	Adj Close 
+	•	Volume
+
+You can repeat the same PySpark notebook and Power BI steps with any of these
+tickers (for example, by changing the input file name) to build similar
+dashboards for other companies.
