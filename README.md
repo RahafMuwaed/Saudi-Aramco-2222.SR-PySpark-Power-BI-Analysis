@@ -209,7 +209,10 @@ For each year:
 Result: DataFrame max_drawdown with 7 rows (Year + Max Drawdown %).
 
 
-## 6. Power BI Dashboard
+## 6. Power BI Dashboard 
+
+![Aramco Power BI Dashboard](powerbi/Aramco_Dashboard.png)
+
 
 Since the device is a Mac, the dashboard is built using **Power BI Service (web)**:
 
