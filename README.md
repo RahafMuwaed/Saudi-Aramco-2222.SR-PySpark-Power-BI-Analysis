@@ -55,8 +55,6 @@ These raw columns are the base for all calculations in PySpark and Power BI.
 
 ## 4. Project Structure 
 
-
-
 ```text
 saudi-stocks-spark/
 ├── data/
@@ -68,6 +66,8 @@ saudi-stocks-spark/
 powerbi/
 └── 2222_Aramco_Report.pbix   
 
+
+---
 
 ## 5. PySpark Analysis
 
@@ -117,3 +117,5 @@ Result: DataFrame df_ret_filtered with around 1,486 rows
 This allows us to analyze:
 	•	Best and worst daily performance.
 	•	Volatility patterns.
+
+
