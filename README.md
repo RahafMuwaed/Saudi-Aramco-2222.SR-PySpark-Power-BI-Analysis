@@ -101,12 +101,13 @@ We also ensure that:
 ### 5.3 Daily Returns
 
 We calculate daily percentage return based on the closing price:
+(Close_today / Close_yesterday - 1) * 100
 
-# (Close_today / Close_yesterday - 1) * 100
 
 Implementation idea:
 	•	Use a Window function ordered by Date to get prev_close.
 	•	Create a new column: daily_return_pct.
+	
 
 Result: DataFrame df_ret_filtered with around 1,486 rows
 (the first day has no previous close, so it’s excluded from returns).
@@ -114,6 +115,7 @@ Result: DataFrame df_ret_filtered with around 1,486 rows
 This allows us to analyze:
 	•	Best and worst daily performance.
 	•	Volatility patterns.
+	
 
 ### 5.4 Monthly Statistics
 
@@ -140,8 +142,7 @@ Result: DataFrame yearly_avg with 7 rows (one per year in the data).
 ### 5.6 Yearly Returns
 
 We compute Year Return %:
-
-# {Year Return %} = \left( \frac{\text{Last Close in year}}{\text{First Close in year}} - 1 \right) \times 100
+{Year Return %} = \left( \frac{\text{Last Close in year}}{\text{First Close in year}} - 1 \right) \times 100
 
 
 Steps:
@@ -153,6 +154,7 @@ Steps:
 Result: DataFrame year_returns with 7 rows (Year + Year Return %).
 
 
+
 ### 5.7 Max Drawdown Per Year
 
 Max Drawdown = the worst (largest) drop from a peak to a bottom during the year.
@@ -160,12 +162,14 @@ Max Drawdown = the worst (largest) drop from a peak to a bottom during the year.
 For each year:
 	•	Track running maximum of Close.
 	•	Compute drawdown:
+	drawdown = (Close / running_max - 1) * 100
 	
-# drawdown = (Close / running_max - 1) * 100
 
 •Take the minimum drawdown (most negative) as max_drawdown_pct.
 
 Result: DataFrame max_drawdown with 7 rows (Year + Max Drawdown %).
+
+
 
 
 
