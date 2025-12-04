@@ -71,13 +71,31 @@ These raw columns are the base for all calculations in PySpark and Power BI.
 saudi-stocks-spark/
 ├─ data/
 │  └─ raw/
-│     └─ 2222.SR.csv
-├─ notebooks/
-│  └─ PySpark.ipynb
+│     ├─ 2222.SR.csv
+│     ├─ 1120.SR.csv
+│     ├─ 1180.SR.csv
+│     ├─ 1211.SR.csv
+│     ├─ 1810.SR.csv
+│     ├─ 2010.SR.csv
+│     ├─ 2050.SR.csv
+│     ├─ 4003.SR.csv
+│     ├─ 5110.SR.csv
+│     └─ 7010.SR.csv
+├─ spark-output/
+│  ├─ daily_data.csv
+│  ├─ monthly_stats.csv
+│  ├─ monthly_volume.csv
+│  ├─ yearly_avg.csv
+│  ├─ yearly_returns.csv
+│  ├─ year_max_drawdown.csv
+│  ├─ best_day.csv
+│  ├─ worst_day.csv
+│  └─ overall_metrics.csv
+├─ powerbi/
+   └─ Aramco_Dashboard.png
+├─ PySpark.ipynb
+├─ download_data.ipynb
 └─ README.md
-powerbi/
-└─ 2222_Aramco_Report.pbix
-```
 
 ---
 
