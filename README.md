@@ -24,7 +24,7 @@ The goal is to give a **clean, professional** view of the stock performance over
 
 ### 2.1 Source
 
-- The main dataset is a CSV file downloaded from a **public financial data website** (e.g. Tadawul/Yahoo Finance).
+- The main dataset is a CSV file downloaded from a **public financial data website** (Yahoo Finance).
 - File name used in the notebook:  
   `data/raw/2222.SR.csv`
 
