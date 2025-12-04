@@ -5,15 +5,15 @@
 
 This project analyzes **Saudi Aramco stock (2222.SR)** using:
 
-- **PySpark** for data preparation & analytics.
-- **Power BI (web)** for building an interactive dashboard.
+    - **PySpark** for data preparation & analytics.
+    - **Power BI (web)** for building an interactive dashboard.
 
 The goal is to give a **clean, professional** view of the stock performance over the last years, answering questions like:
 
-- How did the stock price move over time?
-- What are the **highest / lowest** prices in the whole period?
-- What is the **average price** and **average trading volume**?
-- How does price and volume change **by year**?
+    - How did the stock price move over time?
+    - What are the **highest / lowest** prices in the whole period?
+    - What is the **average price** and **average trading volume**?
+    - How does price and volume change **by year**?
 
 > **Dataset period:** from **2019-12-12** to **2025-12-02**  
 > (This is the range in the `2222.SR.csv` file used in this project.)
@@ -44,13 +44,13 @@ for basic cleaning done later in PySpark.
 
 Typical columns in the file:
 
-- `Date` – Trading day (e.g. `2024-01-15`).
-- `Open` – Price at market open.
-- `High` – Highest price during the day.
-- `Low` – Lowest price during the day.
-- `Close` – Closing price of the day.
-- `Adj Close` – Adjusted closing price (after dividends/splits if available).
-- `Volume` – Number of traded shares in that day.
+    - `Date` – Trading day (e.g. `2024-01-15`).
+    - `Open` – Price at market open.
+    - `High` – Highest price during the day.
+    - `Low` – Lowest price during the day.
+    - `Close` – Closing price of the day.
+    - `Adj Close` – Adjusted closing price (after dividends/splits if available).
+    - `Volume` – Number of traded shares in that day.
 
 These raw columns are the base for all calculations in PySpark and Power BI.
 
@@ -58,10 +58,10 @@ These raw columns are the base for all calculations in PySpark and Power BI.
 
 ## 3. Tools & Technologies
 
-- **OS:** macOS  
-- **Environment:** Anaconda / Jupyter Notebook  
-- **Language:** Python 3 + **PySpark**
-- **Visualization:** **Power BI Service (web)**
+    - **OS:** macOS  
+    - **Environment:** Anaconda / Jupyter Notebook  
+    - **Language:** Python 3 + **PySpark**
+    - **Visualization:** **Power BI Service (web)**
 
 ---
 
@@ -206,17 +206,18 @@ Since the device is a Mac, the dashboard is built using **Power BI Service (web)
 
 The uploaded dataset contains (at minimum):
 
-- `Date` 
-- `Open`, `High`, `Low`, `Close` 
-- `Adj Close` 
-- `Volume` 
+    - `Date` 
+    - `Open`, `High`, `Low`, `Close` 
+    - `Adj Close` 
+    - `Volume` 
 
 Additional calculated fields:
 
-- **Year**: calculated column  
+    - **Year**: calculated column  
   `Year = YEAR([Date])`
-- **Year Return %**: imported from PySpark output (or created as a measure/table  
-  that holds the annual percentage return for the Close price).
+  
+    - **Year Return %**: imported from PySpark output (or created as a measure/table  
+       that holds the annual percentage return for the Close price).
 
 ---
 
@@ -224,25 +225,29 @@ Additional calculated fields:
 
 We use **Card** visuals to show important summary numbers:
 
-1. **Highest Close Price**  
-   - Field: `Close`  
-   - Aggregation: **Max**  
-   - Meaning: highest recorded daily closing price over the whole period.
+1. **Highest Close Price**
+    
+       - Field: `Close`  
+       - Aggregation: **Max**  
+       - Meaning: highest recorded daily closing price over the whole period.
 
-2. **Lowest Close Price**  
-   - Field: `Close`  
-   - Aggregation: **Min**  
-   - Meaning: lowest recorded daily closing price over the whole period.
+3. **Lowest Close Price**
+   
+       - Field: `Close`  
+       - Aggregation: **Min**  
+       - Meaning: lowest recorded daily closing price over the whole period.
 
-3. **Average Close Price**  
-   - Field: `Close`  
-   - Aggregation: **Average**  
-   - Meaning: average closing price across all trading days in the dataset.
+5. **Average Close Price**
+   
+       - Field: `Close`  
+       - Aggregation: **Average**  
+       - Meaning: average closing price across all trading days in the dataset.
 
-4. **Average Daily Volume**  
-   - Field: `Volume`  
-   - Aggregation: **Average**  
-   - Meaning: average number of shares traded per day.
+7. **Average Daily Volume**
+    
+       - Field: `Volume`  
+       - Aggregation: **Average**  
+       - Meaning: average number of shares traded per day.
 
 These four cards give a quick, high-level view of the stock behaviour.
 
@@ -250,69 +255,69 @@ These four cards give a quick, high-level view of the stock behaviour.
 
 ### 6.3 Column Chart – Total Trading Volume by Year
 
-- **Visual**: Clustered column chart  
-- **Axis**: `Year`  
-- **Values**: `Volume` with aggregation = **Sum**  
+    - **Visual**: Clustered column chart  
+    - **Axis**: `Year`  
+    - **Values**: `Volume` with aggregation = **Sum**  
 
 **What it shows**
 
-- Total traded volume per year.  
-- Highlights which years were the most active in terms of trading.
+    - Total traded volume per year.  
+    - Highlights which years were the most active in terms of trading.
 
 ---
 
 ### 6.4 Donut Chart – Share of Trading Volume by Year
 
-- **Visual**: Donut chart  
-- **Legend**: `Year`  
-- **Values**: `Volume` with aggregation = **Sum**
+    - **Visual**: Donut chart  
+    - **Legend**: `Year`  
+    - **Values**: `Volume` with aggregation = **Sum**
 
 **What it shows**
 
-- Percentage share of total trading volume for each year.  
-- Quickly compares which years dominate the overall trading activity.
+    - Percentage share of total trading volume for each year.  
+    - Quickly compares which years dominate the overall trading activity.
 
 ---
 
 ### 6.5 Column Chart – Yearly Return % for Close Price
 
-- **Visual**: Clustered column chart  
-- **Axis**: `Year`  
-- **Values**: `Year Return %` 
+    - **Visual**: Clustered column chart  
+    - **Axis**: `Year`  
+    - **Values**: `Year Return %` 
 
 **What it shows**
 
-- For each year, the percentage return based on the Close price  
-  (from first trading day of the year to the last).
+    - For each year, the percentage return based on the Close price  
+      (from first trading day of the year to the last).
     
-- Positive bars indicate profitable years; negative bars indicate loss years.
+    - Positive bars indicate profitable years; negative bars indicate loss years.
 
 ---
 
 ### 6.6 Line Chart – Monthly Average Close Price
 
-- **Visual**: Line chart  
-- **Axis**: `Month` 
-- **Values**: `Close` with aggregation = **Average**  
-- **Interactivity**: filtered by the **Year slicer** 
+    - **Visual**: Line chart  
+    - **Axis**: `Month` 
+    - **Values**: `Close` with aggregation = **Average**  
+    - **Interactivity**: filtered by the **Year slicer** 
 
 **What it shows**
 
-- For the selected year, how the average closing price moves from month to month.  
-- Helps detect seasonal patterns or specific months with higher/lower prices.
+    - For the selected year, how the average closing price moves from month to month.  
+    - Helps detect seasonal patterns or specific months with higher/lower prices.
 
 ---
 
 ### 6.7 Line Chart – Daily Average Close Price by Year
 
-- **Visual**: Line chart  
-- **Axis**: `Year`  
-- **Values**: `Close` with aggregation = **Average**
+    - **Visual**: Line chart  
+    - **Axis**: `Year`  
+    - **Values**: `Close` with aggregation = **Average**
 
 **What it shows**
 
-- Trend of the average daily closing price across years.  
-- Summarises how the stock’s typical daily price evolved over time.
+    - Trend of the average daily closing price across years.  
+    - Summarises how the stock’s typical daily price evolved over time.
 
 ---
 
@@ -321,9 +326,10 @@ These four cards give a quick, high-level view of the stock behaviour.
 To make the dashboard more interactive, we use:
 
 1. **Year Slicer**
-   - Field: `Year`
-   - Type: list (radio buttons)
-   - Effect: filters the monthly line chart and other visuals to a single year.
+     
+	   - Field: `Year`
+       - Type: list (radio buttons)
+       - Effect: filters the monthly line chart and other visuals to a single year.
 
 ---
 
@@ -359,10 +365,11 @@ data/raw/
 ```
 
 and they share the same basic structure as 2222.SR.csv:
-	•	Date
-	•	Open, High, Low, Close
-	•	Adj Close 
-	•	Volume
+
+	-Date
+	-Open, High, Low, Close
+	-Adj Close 
+	-Volume
 
 You can repeat the same PySpark notebook and Power BI steps with any of these
 tickers (for example, by changing the input file name) to build similar
