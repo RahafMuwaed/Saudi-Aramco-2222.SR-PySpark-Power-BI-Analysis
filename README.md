@@ -102,40 +102,41 @@ df_prices = (
 ### 5.2 Cleaning & Selecting Columns
 
 We keep only the relevant columns:
-	•	Date
-	•	Open, High, Low, Close
-	•	Volume
-
+	- Date  
+    - Open, High, Low, Close  
+    - Volume
+	
 We also ensure that:
-	•	Date is converted to a proper date type (if needed).
-	•	Numeric columns are correctly inferred as numbers (not strings).
+	 - Date is converted to a proper date type (if needed).
+	 - Numeric columns are correctly inferred as numbers (not strings).
+	 
 
 ### 5.3 Daily Returns
 
 We calculate daily percentage return based on the closing price:
-(Close_today / Close_yesterday - 1) * 100
+- (Close_today / Close_yesterday - 1) * 100
 
 
 Implementation idea:
-	•	Use a Window function ordered by Date to get prev_close.
-	•	Create a new column: daily_return_pct.
+	- Use a Window function ordered by Date to get prev_close.
+	- Create a new column: daily_return_pct.
 	
 
 Result: DataFrame df_ret_filtered with around 1,486 rows
 (the first day has no previous close, so it’s excluded from returns).
 
 This allows us to analyze:
-	•	Best and worst daily performance.
-	•	Volatility patterns.
+	- Best and worst daily performance.
+	- Volatility patterns.
 	
 
 ### 5.4 Monthly Statistics
 
 We aggregate by Year-Month to get:
-	•	Average close per month.
-	•	Minimum & maximum close per month.
-	•	Average daily return per month.
-	•	Total monthly volume.
+	- Average close per month.
+	- Minimum & maximum close per month.
+	- Average daily return per month.
+	- Total monthly volume.
 
 Result: DataFrame monthly_stats with 73 rows (each row = one month).
 
@@ -145,8 +146,8 @@ We also calculate monthly_volume separately if needed.
 ### 5.5 Yearly Averages
 
 We aggregate by Year to get:
-	•	yearly_avg_close – average closing price per year.
-	•	yearly_avg_volume – average daily volume per year.
+	- yearly_avg_close – average closing price per year.
+	- yearly_avg_volume – average daily volume per year.
 
 Result: DataFrame yearly_avg with 7 rows (one per year in the data).
 
@@ -154,14 +155,14 @@ Result: DataFrame yearly_avg with 7 rows (one per year in the data).
 ### 5.6 Yearly Returns
 
 We compute Year Return %:
-{Year Return %} = \left( \frac{\text{Last Close in year}}{\text{First Close in year}} - 1 \right) \times 100
+- {Year Return %} = \left( \frac{\text{Last Close in year}}{\text{First Close in year}} - 1 \right) \times 100
 
 
 Steps:
-	1.	For each year:
-	•	Get first trading day close.
-	•	Get last trading day close.
-	2.	Apply the formula and create year_return_pct.
+	For each year:
+	- Get first trading day close.
+	- Get last trading day close.
+	- Apply the formula and create year_return_pct.
 
 Result: DataFrame year_returns with 7 rows (Year + Year Return %).
 
@@ -172,14 +173,13 @@ Result: DataFrame year_returns with 7 rows (Year + Year Return %).
 Max Drawdown = the worst (largest) drop from a peak to a bottom during the year.
 
 For each year:
-	•	Track running maximum of Close.
-	•	Compute drawdown:
-	drawdown = (Close / running_max - 1) * 100
-	
-
-•Take the minimum drawdown (most negative) as max_drawdown_pct.
+	- Track running maximum of Close.
+	- Compute drawdown:
+    - drawdown = (Close / running_max - 1) * 100
+	- Take the minimum drawdown (most negative) as max_drawdown_pct.
 
 Result: DataFrame max_drawdown with 7 rows (Year + Max Drawdown %).
+
 
 ## 6. Power BI Dashboard
 
