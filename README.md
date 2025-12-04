@@ -299,9 +299,9 @@ These four cards give a quick, high-level view of the stock behaviour.
 To make the dashboard more interactive, we use:
 
 1. **Year Slicer**
-   - Field: `Year`
-   - Type: list 
-   - Effect: filters the monthly line chart and other visuals to a single year.
+   -Field: `Year`
+   -Type: list 
+   -Effect: filters the monthly line chart and other visuals to a single year.
 
 ---
 
