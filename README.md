@@ -53,20 +53,19 @@ These raw columns are the base for all calculations in PySpark and Power BI.
 
 ---
 
-## 4. Project Structure 
+## 4. Project Structure
 
 ```text
 saudi-stocks-spark/
-├── data/
-│   └── raw/
-│       └── 2222.SR.csv        
-├── notebooks/
-│   └── PySpark.ipynb          
-└── README.md
+├─ data/
+│  └─ raw/
+│     └─ 2222.SR.csv
+├─ notebooks/
+│  └─ PySpark.ipynb
+└─ README.md
 powerbi/
-└── 2222_Aramco_Report.pbix
-                             ```
-
+└─ 2222_Aramco_Report.pbix
+```
 
 ---
 
@@ -79,15 +78,14 @@ Below is a summary of the main steps and what each part does.
 
 ### 5.1 Loading the Data
 
-We create a `SparkSession` and load the CSV file:
-
 ```python
 df_prices = (
     spark.read
-    .option("header", True)
-    .option("inferSchema", True)
-    .csv("data/raw/2222.SR.csv")
+        .option("header", True)
+        .option("inferSchema", True)
+        .csv("data/raw/2222.SR.csv")
 )
+```
 
 ### 5.2 Cleaning & Selecting Columns
 
@@ -100,13 +98,11 @@ We also ensure that:
 	•	Date is converted to a proper date type (if needed).
 	•	Numeric columns are correctly inferred as numbers (not strings).
 
-### 5.3Daily Returns
+### 5.3 Daily Returns
 
 We calculate daily percentage return based on the closing price:
 
-[
-\text{daily_return_pct} = \left( \frac{\text{Close}\text{today}}{\text{Close}\text{yesterday}} - 1 \right) \times 100
-]
+# (Close_today / Close_yesterday - 1) * 100
 
 Implementation idea:
 	•	Use a Window function ordered by Date to get prev_close.
@@ -118,5 +114,59 @@ Result: DataFrame df_ret_filtered with around 1,486 rows
 This allows us to analyze:
 	•	Best and worst daily performance.
 	•	Volatility patterns.
+
+### 5.4 Monthly Statistics
+
+We aggregate by Year-Month to get:
+	•	Average close per month.
+	•	Minimum & maximum close per month.
+	•	Average daily return per month.
+	•	Total monthly volume.
+
+Result: DataFrame monthly_stats with 73 rows (each row = one month).
+
+We also calculate monthly_volume separately if needed.
+
+
+### 5.5 Yearly Averages
+
+We aggregate by Year to get:
+	•	yearly_avg_close – average closing price per year.
+	•	yearly_avg_volume – average daily volume per year.
+
+Result: DataFrame yearly_avg with 7 rows (one per year in the data).
+
+
+### 5.6 Yearly Returns
+
+We compute Year Return %:
+
+# {Year Return %} = \left( \frac{\text{Last Close in year}}{\text{First Close in year}} - 1 \right) \times 100
+
+
+Steps:
+	1.	For each year:
+	•	Get first trading day close.
+	•	Get last trading day close.
+	2.	Apply the formula and create year_return_pct.
+
+Result: DataFrame year_returns with 7 rows (Year + Year Return %).
+
+
+### 5.7 Max Drawdown Per Year
+
+Max Drawdown = the worst (largest) drop from a peak to a bottom during the year.
+
+For each year:
+	•	Track running maximum of Close.
+	•	Compute drawdown:
+	
+# drawdown = (Close / running_max - 1) * 100
+
+•Take the minimum drawdown (most negative) as max_drawdown_pct.
+
+Result: DataFrame max_drawdown with 7 rows (Year + Max Drawdown %).
+
+
 
 
