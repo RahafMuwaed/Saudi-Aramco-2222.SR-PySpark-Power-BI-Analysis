@@ -169,6 +169,149 @@ For each year:
 
 Result: DataFrame max_drawdown with 7 rows (Year + Max Drawdown %).
 
+## 6. Power BI Dashboard
+
+Since the device is a Mac, the dashboard is built using **Power BI Service (web)**:
+
+1. Go to `https://app.powerbi.com`.
+2. Use **My workspace** (or create a new workspace).
+3. Upload the dataset `2222.SR.csv` as a new semantic model.
+4. Click **Create report** and start building visuals.
+
+---
+
+### 6.1 Dataset in Power BI
+
+The uploaded dataset contains (at minimum):
+
+- `Date` 
+- `Open`, `High`, `Low`, `Close` 
+- `Adj Close` 
+- `Volume` 
+
+Additional calculated fields:
+
+- **Year**: calculated column  
+  `Year = YEAR([Date])`
+- **Year Return %**: imported from PySpark output (or created as a measure/table  
+  that holds the annual percentage return for the Close price).
+
+---
+
+### 6.2 Main KPIs (Cards)
+
+We use **Card** visuals to show important summary numbers:
+
+1. **Highest Close Price**  
+   - Field: `Close`  
+   - Aggregation: **Max**  
+   - Meaning: highest recorded daily closing price over the whole period.
+
+2. **Lowest Close Price**  
+   - Field: `Close`  
+   - Aggregation: **Min**  
+   - Meaning: lowest recorded daily closing price over the whole period.
+
+3. **Average Close Price**  
+   - Field: `Close`  
+   - Aggregation: **Average**  
+   - Meaning: average closing price across all trading days in the dataset.
+
+4. **Average Daily Volume**  
+   - Field: `Volume`  
+   - Aggregation: **Average**  
+   - Meaning: average number of shares traded per day.
+
+These four cards give a quick, high-level view of the stock behaviour.
+
+---
+
+### 6.3 Column Chart – Total Trading Volume by Year
+
+- **Visual**: Clustered column chart  
+- **Axis**: `Year`  
+- **Values**: `Volume` with aggregation = **Sum**  
+
+**What it shows**
+
+- Total traded volume per year.  
+- Highlights which years were the most active in terms of trading.
+
+---
+
+### 6.4 Donut Chart – Share of Trading Volume by Year
+
+- **Visual**: Donut chart  
+- **Legend**: `Year`  
+- **Values**: `Volume` with aggregation = **Sum**
+
+**What it shows**
+
+- Percentage share of total trading volume for each year.  
+- Quickly compares which years dominate the overall trading activity.
+
+---
+
+### 6.5 Column Chart – Yearly Return % for Close Price
+
+- **Visual**: Clustered column chart  
+- **Axis**: `Year`  
+- **Values**: `Year Return %` 
+
+**What it shows**
+
+- For each year, the percentage return based on the Close price  
+  (from first trading day of the year to the last).
+    
+- Positive bars indicate profitable years; negative bars indicate loss years.
+
+---
+
+### 6.6 Line Chart – Monthly Average Close Price
+
+- **Visual**: Line chart  
+- **Axis**: `Month` 
+- **Values**: `Close` with aggregation = **Average**  
+- **Interactivity**: filtered by the **Year slicer** 
+
+**What it shows**
+
+- For the selected year, how the average closing price moves from month to month.  
+- Helps detect seasonal patterns or specific months with higher/lower prices.
+
+---
+
+### 6.7 Line Chart – Daily Average Close Price by Year
+
+- **Visual**: Line chart  
+- **Axis**: `Year`  
+- **Values**: `Close` with aggregation = **Average**
+
+**What it shows**
+
+- Trend of the average daily closing price across years.  
+- Summarises how the stock’s typical daily price evolved over time.
+
+---
+
+### 6.8 Slicers
+
+To make the dashboard more interactive, we use:
+
+1. **Year Slicer**
+   - Field: `Year`
+   - Type: list 
+   - Effect: filters the monthly line chart and other visuals to a single year.
+
+---
+
+### Note
+
+All results are based on the dataset available at the time of analysis  
+(2019-12-12 to 2025-12-02).  
+If the dataset is refreshed in the future (more rows are added), the numbers in
+the dashboard will update automatically.
+
 
 
 
